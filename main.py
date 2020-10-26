@@ -6,7 +6,7 @@
 ################################################################################
 
 import sys
-
+import sqlite3
 import self as self
 import ui as ui
 from PyQt5 import QtWidgets, QtCore, QtGui
@@ -21,6 +21,17 @@ from ChildV import Ui_Dialog
 
 ## ==> Окно "Открыть проекты для просмотра"
 from CreatingW import Ui_MainWindow
+
+
+connect_1 = sqlite3.connect('DB.db')
+c_1 = connect_1.cursor()
+c_1.execute(
+     '''CREATE TABLE IF NOT EXISTS PAP (NameProject text primary key,
+      N integer,
+      costs_one float,
+      costs_N float)''')
+connect_1.commit()
+
 
 # К Главному меню:
 class MainW(QtWidgets.QMainWindow):
@@ -58,12 +69,62 @@ class MainW(QtWidgets.QMainWindow):
         createwin.show()
 
         self.name = self.ui.lineEdit
-        self.comments = self.ui.lineEdit_2.get()
-        self.N = self.ui.spinBox.get()
+        self.comments = self.ui.lineEdit_2
+        self.N = self.ui.spinBox
+        self.to1 = self.ui.checkBox
+        self.to2 = self.ui.checkBox_2
 
 
         ui.label.setText(self.name.text())
+        print(self.to1.text())
+        print(self.to1.isChecked())
+        print(ui.tab.objectName())
 
+        ui.tab.setEnabled(self.to1.isChecked())
+
+        self.connect = sqlite3.connect('DB.db')
+        print(1)
+        self.c = self.connect.cursor()
+        print(2)
+        self.c.execute(
+        '''CREATE TABLE IF NOT EXISTS Rubka 
+            (NameProject text primary key,
+            pole_1 integer,
+            k1 float,
+            n integer,
+            k2 float,
+            pole_3 text,
+            k3 float,
+            Un float,
+            nxN float,
+            costs_one float,
+            costs_N float)''')
+        print(3)
+        self.connect.commit()
+
+
+
+
+
+
+
+
+
+
+
+      #  self.c.execute('''INSERT INTO Rubka (description_TO, costs_1, costs_N) VALUES (?, ?, ?)''',
+      #                 (1, 2, 3))
+      #  self.conn.commit()
+
+
+        print('onnect')
+
+
+
+
+
+       # ui.tab.setEnabled(1,True)
+     #   ui.tab_2.setEnabled(0,False)
 
 
 
@@ -87,7 +148,12 @@ class CreatingW(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+
+
+
+
     ## ==> Функции Окна "Открыть проекты для просмотра":
+
 
 
 
