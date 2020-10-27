@@ -11,6 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -18,7 +19,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(50, 30, 1021, 381))
+        self.tabWidget.setGeometry(QtCore.QRect(50, 20, 1021, 381))
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
@@ -29,16 +30,9 @@ class Ui_MainWindow(object):
         self.line.setObjectName("line")
         self.spinBox = QtWidgets.QSpinBox(self.tab)
         self.spinBox.setGeometry(QtCore.QRect(40, 30, 61, 31))
+        self.spinBox.setMinimum(2)
+        self.spinBox.setMaximum(6)
         self.spinBox.setObjectName("spinBox")
-        self.comboBox = QtWidgets.QComboBox(self.tab)
-        self.comboBox.setGeometry(QtCore.QRect(40, 190, 69, 22))
-        self.comboBox.setObjectName("comboBox")
-        self.comboBox_2 = QtWidgets.QComboBox(self.tab)
-        self.comboBox_2.setGeometry(QtCore.QRect(40, 80, 69, 22))
-        self.comboBox_2.setObjectName("comboBox_2")
-        self.comboBox_3 = QtWidgets.QComboBox(self.tab)
-        self.comboBox_3.setGeometry(QtCore.QRect(40, 140, 69, 22))
-        self.comboBox_3.setObjectName("comboBox_3")
         self.pushButton_3 = QtWidgets.QPushButton(self.tab)
         self.pushButton_3.setGeometry(QtCore.QRect(470, 302, 531, 41))
         self.pushButton_3.setObjectName("pushButton_3")
@@ -67,6 +61,21 @@ class Ui_MainWindow(object):
         self.pushButton_5 = QtWidgets.QPushButton(self.tab)
         self.pushButton_5.setGeometry(QtCore.QRect(40, 290, 391, 51))
         self.pushButton_5.setObjectName("pushButton_5")
+        self.spinBox_2 = QtWidgets.QSpinBox(self.tab)
+        self.spinBox_2.setGeometry(QtCore.QRect(40, 80, 61, 31))
+        self.spinBox_2.setMinimum(1)
+        self.spinBox_2.setMaximum(100)
+        self.spinBox_2.setObjectName("spinBox_2")
+        self.lineEdit = QtWidgets.QLineEdit(self.tab)
+        self.lineEdit.setGeometry(QtCore.QRect(40, 190, 113, 20))
+        self.lineEdit.setObjectName("lineEdit")
+        self.comboBox = QtWidgets.QComboBox(self.tab)
+        self.comboBox.setGeometry(QtCore.QRect(40, 140, 141, 22))
+        self.comboBox.setEditable(False)
+        self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -97,6 +106,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -117,6 +127,9 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "New Column"))
         self.pushButton_4.setText(_translate("MainWindow", "Добавить тип технологической операции"))
         self.pushButton_5.setText(_translate("MainWindow", "Удалить тип технологической операции"))
+        self.comboBox.setItemText(0, _translate("MainWindow", "стандартный"))
+        self.comboBox.setItemText(1, _translate("MainWindow", "сложный"))
+        self.comboBox.setItemText(2, _translate("MainWindow", "особо сложный"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Tab 1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))
         self.treeWidget.headerItem().setText(0, _translate("MainWindow", "1"))

@@ -14,6 +14,8 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 
 
 ## ==> Главное меню
+from PyQt5.QtWidgets import QMainWindow
+
 from MainW import Ui_MainW
 
 ## ==> Окно "Открыть проекты для просмотра"
@@ -23,22 +25,38 @@ from ChildV import Ui_Dialog
 from CreatingW import Ui_MainWindow
 
 
-connect_1 = sqlite3.connect('DB.db')
-c_1 = connect_1.cursor()
-c_1.execute(
+connect = sqlite3.connect('DB.db')
+cursor = connect.cursor()
+cursor.execute(
      '''CREATE TABLE IF NOT EXISTS PAP (NameProject text primary key,
       N integer,
       costs_one float,
       costs_N float)''')
-connect_1.commit()
+connect.commit()
 
+name=None
+N=None
 
 # К Главному меню:
-class MainW(QtWidgets.QMainWindow):
+class MainW(QMainWindow):
     def __init__(self):
-        super(MainW, self).__init__()
+        QMainWindow.__init__(self)
         self.ui = Ui_MainW()
         self.ui.setupUi(self)
+
+       # self.name = self.ui.lineEdit
+       # self.comments = self.ui.lineEdit_2
+       # self.N = self.ui.spinBox
+       # self.to1 = self.ui.checkBox
+       # self.to2 = self.ui.checkBox_2
+
+       # self.connect_mainw = sqlite3.connect('DB.db')
+       # self.cursor_mainw = self.connect_mainw.cursor()
+      #  self.cursor_mainw.execute('''INSERT INTO PAP (NameProject, costs_one) VALUES (?, ?)''',
+      #                           (self.name, self.N))
+      #  self.connect_mainw.commit()
+
+
 
         # MainW Label
 
@@ -61,31 +79,54 @@ class MainW(QtWidgets.QMainWindow):
         ui.setupUi(otherwin)
         otherwin.show()
 
-    def create_project(self,name=None,comments=None,N=1,to1=None,to2=None):
-        global createwin
-        createwin = QtWidgets.QMainWindow()
-        ui = Ui_MainWindow()
-        ui.setupUi(createwin)
-        createwin.show()
+    def create_project(self): #,name=None,comments=None,N=None,to1=None,to2=None):
+        #global createwin
 
-        self.name = self.ui.lineEdit
-        self.comments = self.ui.lineEdit_2
-        self.N = self.ui.spinBox
-        self.to1 = self.ui.checkBox
-        self.to2 = self.ui.checkBox_2
+        global name
+        global N
+        name = self.ui.lineEdit.text()
+        print(name, 10000)
+
+        N = int(self.ui.spinBox.text())
+        print(N, 1000000)
 
 
-        ui.label.setText(self.name.text())
-        print(self.to1.text())
-        print(self.to1.isChecked())
-        print(ui.tab.objectName())
 
-        ui.tab.setEnabled(self.to1.isChecked())
+
+        self.createwin = CreatingW()
+        self.createwin.show()
+        #ui = Ui_MainWindow()
+        #ui.setupUi(createwin)
+        #createwin.show()
+       # global createproj
+      #  createproj = CreatingW()
+
+
+
+        self.connect_mainw = sqlite3.connect('DB.db')
+        self.cursor_mainw = self.connect_mainw.cursor()
+        self.cursor_mainw.execute('''INSERT INTO PAP (NameProject, N) VALUES (?, ?)''',
+                                   (self.ui.lineEdit.text(), int(self.ui.spinBox.text())))
+        self.connect_mainw.commit()
+
+        #self.comments = self.ui.lineEdit_2
+        #self.N = self.ui.spinBox
+        #self.to1 = self.ui.checkBox
+        #self.to2 = self.ui.checkBox_2
+
+
+       # self.ui.label.setText(self.name.text())
+        #print(self.to1.text())
+        #print(self.to1.isChecked())
+       # print(ui.tab.objectName())
+
+        #ui.tab.setEnabled(self.to1.isChecked())
+
+
+
 
         self.connect = sqlite3.connect('DB.db')
-        print(1)
         self.c = self.connect.cursor()
-        print(2)
         self.c.execute(
         '''CREATE TABLE IF NOT EXISTS Rubka 
             (NameProject text primary key,
@@ -99,8 +140,41 @@ class MainW(QtWidgets.QMainWindow):
             nxN float,
             costs_one float,
             costs_N float)''')
-        print(3)
+
+        self.c.execute(
+        '''CREATE TABLE IF NOT EXISTS Gibka
+            (NameProject text primary key,
+            pole_1 integer,
+            k1 float,
+            n integer,
+            k2 float,
+            pole_3 text,
+            k3 float,
+            Un float,
+            nxN float,
+            costs_one float,
+            costs_N float)''')
+
         self.connect.commit()
+
+        #def add(self):  # , pole_1=2, n=1, pole_3='стандартный', Un=0):
+            #print('1')
+
+            # self.pole_1 = int(self.ui.spinBox)
+            # self.n = self.ui.spinBox_2
+            # self.pole_3 = self.ui.comboBox
+            # self.Un = self.ui.lineEdit
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -142,11 +216,46 @@ class ChildV(QtWidgets.QDialog):
 
 
 # К Окну "Открыть проекты для просмотра":
-class CreatingW(QtWidgets.QMainWindow):
+class CreatingW(QMainWindow):
     def __init__(self):
-        super(CreatingW, self).__init__()
+        QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        global name
+        self.ui.label.setText(name)
+
+
+
+
+
+        #print(name,N)
+
+
+        #self.connect_crw1 = sqlite3.connect('DB.db')
+       # self.c_cr1 = self.connect_crw1.cursor()
+        #self.c_cr1.execute(
+         #   '''SELECT * FROM PAP''')
+
+        #print(self.c_cr1.fetchall())
+
+
+       # self.connect_crw1.commit()
+
+
+
+      #  self.show()
+
+
+
+        print(333)
+
+
+
+
+
+
+
 
 
 
