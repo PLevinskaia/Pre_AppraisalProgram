@@ -47,22 +47,6 @@ class MainW(QMainWindow):
         self.ui = Ui_MainW()
         self.ui.setupUi(self)
 
-       # self.name = self.ui.lineEdit
-       # self.comments = self.ui.lineEdit_2
-       # self.N = self.ui.spinBox
-       # self.to1 = self.ui.checkBox
-       # self.to2 = self.ui.checkBox_2
-
-       # self.connect_mainw = sqlite3.connect('DB.db')
-       # self.cursor_mainw = self.connect_mainw.cursor()
-      #  self.cursor_mainw.execute('''INSERT INTO PAP (NameProject, costs_one) VALUES (?, ?)''',
-      #                           (self.name, self.N))
-      #  self.connect_mainw.commit()
-
-
-
-        # MainW Label
-
         # Действия, происходящие при активации виджетов Главного меню:
 
         self.ui.commandLinkButton.clicked.connect(self.openother)
@@ -82,104 +66,25 @@ class MainW(QMainWindow):
         ui.setupUi(otherwin)
         otherwin.show()
 
-    def create_project(self): #,name=None,comments=None,N=None,to1=None,to2=None):
-        #global createwin
+    def create_project(self):
 
         global name
         global N
         global tabs
-
 
         name = self.ui.lineEdit.text()
         N = int(self.ui.spinBox.text())
         tabs[0]=self.ui.checkBox.isChecked()
         tabs[1] = self.ui.checkBox_2.isChecked()
 
-
-
-
-
-
-
-
         self.createwin = CreatingW()
         self.createwin.show()
-        #ui = Ui_MainWindow()
-        #ui.setupUi(createwin)
-        #createwin.show()
-       # global createproj
-      #  createproj = CreatingW()
-
-
 
         self.connect_mainw = sqlite3.connect('DB.db')
         self.cursor_mainw = self.connect_mainw.cursor()
         self.cursor_mainw.execute('''INSERT INTO PAP (NameProject, N) VALUES (?, ?)''',
                                    (self.ui.lineEdit.text(), int(self.ui.spinBox.text())))
         self.connect_mainw.commit()
-
-        #self.comments = self.ui.lineEdit_2
-        #self.N = self.ui.spinBox
-        #self.to1 = self.ui.checkBox
-        #self.to2 = self.ui.checkBox_2
-
-
-       # self.ui.label.setText(self.name.text())
-        #print(self.to1.text())
-        #print(self.to1.isChecked())
-       # print(ui.tab.objectName())
-
-        #ui.tab.setEnabled(self.to1.isChecked())
-
-
-
-
-
-
-        #def add(self):  # , pole_1=2, n=1, pole_3='стандартный', Un=0):
-            #print('1')
-
-            # self.pole_1 = int(self.ui.spinBox)
-            # self.n = self.ui.spinBox_2
-            # self.pole_3 = self.ui.comboBox
-            # self.Un = self.ui.lineEdit
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      #  self.c.execute('''INSERT INTO Rubka (description_TO, costs_1, costs_N) VALUES (?, ?, ?)''',
-      #                 (1, 2, 3))
-      #  self.conn.commit()
-
-
-
-
-
-
-
-
-       # ui.tab.setEnabled(1,True)
-     #   ui.tab_2.setEnabled(0,False)
-
-
 
 
 
@@ -303,10 +208,25 @@ class CreatingW(QMainWindow):
         self.connect.commit()
 
 
+        self.ui.tableView.rowsInserted(QMainWindow,1,3)
 
 
 
-        #print(name,N)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         #self.connect_crw1 = sqlite3.connect('DB.db')
@@ -321,11 +241,8 @@ class CreatingW(QMainWindow):
 
 
 
-      #  self.show()
 
 
-
-        print(333)
 
 
 

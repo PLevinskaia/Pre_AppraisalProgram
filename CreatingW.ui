@@ -81,39 +81,52 @@
         <height>271</height>
        </rect>
       </property>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
+      <property name="rowCount">
+       <number>0</number>
+      </property>
       <column>
        <property name="text">
-        <string>New Column</string>
+        <string>Name Project</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>New Column</string>
+        <string>k1</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>New Column</string>
+        <string>k2</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>New Column</string>
+        <string>k3</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Un</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>n</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>nxN</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Sone</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>S</string>
        </property>
       </column>
      </widget>
@@ -196,6 +209,16 @@
         <string>особо сложный</string>
        </property>
       </item>
+     </widget>
+     <widget class="QTableView" name="tableView">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>20</y>
+        <width>256</width>
+        <height>192</height>
+       </rect>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
