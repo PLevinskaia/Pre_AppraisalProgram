@@ -36,6 +36,9 @@ connect.commit()
 
 name=None
 N=None
+tabs=[True,True]
+
+
 
 # К Главному меню:
 class MainW(QMainWindow):
@@ -84,11 +87,17 @@ class MainW(QMainWindow):
 
         global name
         global N
-        name = self.ui.lineEdit.text()
-        print(name, 10000)
+        global tabs
 
+
+        name = self.ui.lineEdit.text()
         N = int(self.ui.spinBox.text())
-        print(N, 1000000)
+        tabs[0]=self.ui.checkBox.isChecked()
+        tabs[1] = self.ui.checkBox_2.isChecked()
+
+
+
+
 
 
 
@@ -125,37 +134,7 @@ class MainW(QMainWindow):
 
 
 
-        self.connect = sqlite3.connect('DB.db')
-        self.c = self.connect.cursor()
-        self.c.execute(
-        '''CREATE TABLE IF NOT EXISTS Rubka 
-            (NameProject text primary key,
-            pole_1 integer,
-            k1 float,
-            n integer,
-            k2 float,
-            pole_3 text,
-            k3 float,
-            Un float,
-            nxN float,
-            costs_one float,
-            costs_N float)''')
 
-        self.c.execute(
-        '''CREATE TABLE IF NOT EXISTS Gibka
-            (NameProject text primary key,
-            pole_1 integer,
-            k1 float,
-            n integer,
-            k2 float,
-            pole_3 text,
-            k3 float,
-            Un float,
-            nxN float,
-            costs_one float,
-            costs_N float)''')
-
-        self.connect.commit()
 
         #def add(self):  # , pole_1=2, n=1, pole_3='стандартный', Un=0):
             #print('1')
@@ -191,7 +170,7 @@ class MainW(QMainWindow):
       #  self.conn.commit()
 
 
-        print('onnect')
+
 
 
 
@@ -222,8 +201,106 @@ class CreatingW(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        global name
+
+
+
         self.ui.label.setText(name)
+
+        self.ui.tab.setEnabled(tabs[0])
+        self.ui.tab_2.setEnabled(tabs[1])
+
+        self.connect = sqlite3.connect('DB.db')
+        self.c = self.connect.cursor()
+        self.c.execute(
+            '''CREATE TABLE IF NOT EXISTS Rubka 
+                (NameProject text primary key,
+                pole_1 integer,
+                k1 float,
+                n integer,
+                k2 float,
+                pole_3 text,
+                k3 float,
+                Un float,
+                nxN float,
+                costs_one float,
+                costs_N float)''')
+
+        self.c.execute(
+            '''CREATE TABLE IF NOT EXISTS Gibka
+                (NameProject text primary key,
+                pole_1 integer,
+                k1 float,
+                n integer,
+                k2 float,
+                pole_3 text,
+                k3 float,
+                Un float,
+                nxN float,
+                costs_one float,
+                costs_N float)''')
+
+        self.connect.commit()
+
+        self.ui.pushButton_4.clicked.connect(self.add)
+
+    def k1_func(self,pole_1):
+        k1 = {2: 1.0, 3: 1.05, 4: 1.1, 5: 1.3, 6: 1.5}
+        return k1[pole_1]
+
+    def k2_func(self, n):
+        if 0 <= float(n) < 100:
+            return 1.0
+        elif 100 <= float(n) < 1000:
+            return 0.8
+        else:
+            return 0.6
+
+    def k3_func(self, pole_3):
+        k3 = {'стандартный': 1.0, 'сложный': 1.2, 'особо сложный': 1.5}
+        return k3[pole_3]
+
+    def nxN_func(self,n,N):
+        return n*N
+
+    def Sone_func(self, k1, k2, k3, un, n):
+        return k1 * k2 * k3 * un * n
+
+    def S_func(self, Se, N):
+        return Se * N
+
+
+
+
+
+
+
+    def add(self):
+
+        self.connect = sqlite3.connect('DB.db')
+        self.c = self.connect.cursor()
+        self.c.execute('''INSERT INTO Rubka (NameProject, pole_1, k1, n, k2, pole_3, k3, Un, nxN, costs_one, costs_N) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                                   (name,
+                                    self.ui.spinBox.text(),
+                                    self.k1_func(int(self.ui.spinBox.text())),
+                                    int(self.ui.spinBox_2.text()),
+                                    self.k2_func(int(self.ui.spinBox_2.text())),
+                                    self.ui.comboBox.currentText(),
+                                    self.k3_func(self.ui.comboBox.currentText()),
+                                    float(self.ui.lineEdit.text()),
+                                    self.nxN_func(int(self.ui.spinBox_2.text()), N),
+                                    self.Sone_func(self.k1_func(int(self.ui.spinBox.text())),
+                                                   self.k2_func(int(self.ui.spinBox_2.text())),
+                                                   self.k3_func(self.ui.comboBox.currentText()),
+                                                   float(self.ui.lineEdit.text()),
+                                                   int(self.ui.spinBox_2.text())),
+                                    self.S_func(
+                                        self.Sone_func(self.k1_func(int(self.ui.spinBox.text())),
+                                                       self.k2_func(int(self.ui.spinBox_2.text())),
+                                                       self.k3_func(self.ui.comboBox.currentText()),
+                                                       float(self.ui.lineEdit.text()),
+                                                       int(self.ui.spinBox_2.text())), N)
+                                    ))
+        self.connect.commit()
 
 
 
