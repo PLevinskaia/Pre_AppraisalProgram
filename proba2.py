@@ -7,8 +7,6 @@
 
 import sys
 import sqlite3
-from random import randint
-
 import self as self
 import ui as ui
 from PyQt5 import QtWidgets, QtCore, QtGui, QtSql
@@ -38,12 +36,9 @@ query.exec_('''CREATE TABLE PAP (
       costs_N REAL)''')
 
 
-
 name=None
 N=None
 tabs=[True,True]
-rowid=0
-
 
 
 
@@ -121,8 +116,7 @@ class CreatingW(QMainWindow):
         self.query = QSqlQuery()
         self.query.exec_(
             '''CREATE TABLE Rubka 
-                (ID TEXT PRIMARY KEY,
-                NameProject TEXT,
+                (NameProject TEXT PRIMARY KEY,
                 pole_1 INTEGER,
                 k1 REAL,
                 n INTEGER,
@@ -136,8 +130,7 @@ class CreatingW(QMainWindow):
 
         self.query.exec_(
             '''CREATE TABLE Gibka 
-                (ID TEXT PRIMARY KEY,
-                NameProject TEXT,
+                (NameProject TEXT PRIMARY KEY,
                 pole_1 INTEGER,
                 k1 REAL,
                 n INTEGER,
@@ -153,21 +146,17 @@ class CreatingW(QMainWindow):
 
 
 
-        self.query.exec_('''SELECT * FROM Rubka''')
+
+        #self.model = QSqlQueryModel()
+        #self.model.setQuery('''SELECT * FROM Rubka''')
         self.model = QSqlTableModel()
         self.model.setQuery(self.query)
-        self.model.setEditStrategy(QSqlTableModel.OnFieldChange)
-
-
-
-        self.model.select()
         self.ui.tableView.setModel(self.model)
         self.ui.tableView.show()
-
+        #self.model.select()
 
 
         self.ui.pushButton_4.clicked.connect(self.add)
-        self.ui.pushButton_5.clicked.connect(self.dell)
 
     def k1_func(self,pole_1):
         k1 = {2: 1.0, 3: 1.05, 4: 1.1, 5: 1.3, 6: 1.5}
@@ -197,24 +186,26 @@ class CreatingW(QMainWindow):
 
     def add(self):
 
-        alfavit='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        self.query.prepare('''INSERT INTO Rubka (ID, NameProject, pole_1, k1, n, k2, pole_3, k3, Un, nxN, costs_one, costs_N) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''')
-        self.query.bindValue(0, alfavit[randint(0,21)]+str(randint(0,100)))
-        self.query.bindValue(1, name)
-        self.query.bindValue(2, self.ui.spinBox.text())
-        self.query.bindValue(3, self.k1_func(int(self.ui.spinBox.text())))
-        self.query.bindValue(4, int(self.ui.spinBox_2.text()))
-        self.query.bindValue(5, self.k2_func(int(self.ui.spinBox_2.text())))
-        self.query.bindValue(6, self.ui.comboBox.currentText())
-        self.query.bindValue(7, self.k3_func(self.ui.comboBox.currentText()))
-        self.query.bindValue(8, float(self.ui.lineEdit.text()))
-        self.query.bindValue(9, self.nxN_func(int(self.ui.spinBox_2.text()), N))
-        self.query.bindValue(10, self.Sone_func(self.k1_func(int(self.ui.spinBox.text())),
+        #self.model.beginResetModel()
+
+
+        self.query = QSqlQuery()
+        self.query.prepare('''INSERT INTO Rubka (NameProject, pole_1, k1, n, k2, pole_3, k3, Un, nxN, costs_one, costs_N) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''')
+        self.query.bindValue(0, name)
+        self.query.bindValue(1, self.ui.spinBox.text())
+        self.query.bindValue(2, self.k1_func(int(self.ui.spinBox.text())))
+        self.query.bindValue(3, int(self.ui.spinBox_2.text()))
+        self.query.bindValue(4, self.k2_func(int(self.ui.spinBox_2.text())))
+        self.query.bindValue(5, self.ui.comboBox.currentText())
+        self.query.bindValue(6, self.k3_func(self.ui.comboBox.currentText()))
+        self.query.bindValue(7, float(self.ui.lineEdit.text()))
+        self.query.bindValue(8, self.nxN_func(int(self.ui.spinBox_2.text()), N))
+        self.query.bindValue(9, self.Sone_func(self.k1_func(int(self.ui.spinBox.text())),
                             self.k2_func(int(self.ui.spinBox_2.text())),
                             self.k3_func(self.ui.comboBox.currentText()),
                             float(self.ui.lineEdit.text()),
                             int(self.ui.spinBox_2.text())))
-        self.query.bindValue(11, self.S_func(
+        self.query.bindValue(10, self.S_func(
                  self.Sone_func(self.k1_func(int(self.ui.spinBox.text())),
                                 self.k2_func(int(self.ui.spinBox_2.text())),
                                 self.k3_func(self.ui.comboBox.currentText()),
@@ -223,37 +214,16 @@ class CreatingW(QMainWindow):
 
         self.query.exec_()
 
-        self.query.exec_('''SELECT * FROM Rubka''')
-        self.model = QSqlTableModel()
-        self.model.setQuery(self.query)
-        self.model.setEditStrategy(QSqlTableModel.OnFieldChange)
-        self.model.select()
-        self.ui.tableView.setModel(self.model)
-        self.ui.tableView.show()
+        #self.model.modelReset()
 
-    def dell(self):
-
-        self.rowid=self.model.record(self.ui.tableView.currentIndex().row()).value(0)
-        self.query.prepare('''DELETE FROM Rubka WHERE ID = ? ''')
-        self.query.addBindValue(self.rowid)
-        self.query.exec_()
-
-        self.query.exec_('''SELECT * FROM Rubka''')
-        self.model = QSqlTableModel()
-        self.model.setQuery(self.query)
-        self.model.setEditStrategy(QSqlTableModel.OnFieldChange)
-        self.model.select()
-        self.ui.tableView.setModel(self.model)
-        self.ui.tableView.show()
+        #self.model = QSqlQueryModel()
+        #self.model.setQuery('''SELECT * FROM Rubka''')
+        #self.ui.tableView.setModel(self.model)
+        #self.ui.tableView.show()
 
 
 
-
-
-
-
-
-
+        #self.model.endResetModel()
 
 
 

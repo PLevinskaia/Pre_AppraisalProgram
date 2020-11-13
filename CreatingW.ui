@@ -69,66 +69,8 @@
        </rect>
       </property>
       <property name="text">
-       <string>Применить</string>
+       <string>Применить уже!</string>
       </property>
-     </widget>
-     <widget class="QTableWidget" name="tableWidget">
-      <property name="geometry">
-       <rect>
-        <x>480</x>
-        <y>10</y>
-        <width>521</width>
-        <height>271</height>
-       </rect>
-      </property>
-      <property name="rowCount">
-       <number>0</number>
-      </property>
-      <column>
-       <property name="text">
-        <string>Name Project</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>k1</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>k2</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>k3</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Un</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>n</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>nxN</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Sone</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>S</string>
-       </property>
-      </column>
      </widget>
      <widget class="QPushButton" name="pushButton_4">
       <property name="geometry">
@@ -213,10 +155,10 @@
      <widget class="QTableView" name="tableView">
       <property name="geometry">
        <rect>
-        <x>190</x>
-        <y>20</y>
-        <width>256</width>
-        <height>192</height>
+        <x>470</x>
+        <y>10</y>
+        <width>531</width>
+        <height>281</height>
        </rect>
       </property>
      </widget>
@@ -316,7 +258,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>520</x>
       <y>10</y>
       <width>321</width>
       <height>16</height>
