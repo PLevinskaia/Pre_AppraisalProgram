@@ -39,16 +39,11 @@ query.exec_('''CREATE TABLE PAP (
       costs_one REAL,
       costs_N REAL)''')
 
-
-
 name=None
 comments=None
 N=None
-tabs=[True,True,True,True,True,True,True,True,True,True,True]
+tabs=[True,True,True,True,True,True,True,True,True,True,True,True,True]
 rowid=0
-
-
-
 
 # К Главному меню:
 class MainW(QMainWindow):
@@ -72,11 +67,6 @@ class MainW(QMainWindow):
         self.ui.tableView.setModel(self.model_PAP)
         self.ui.tableView.show()
 
-
-
-
-
-
     ## ==> Функции Главного меню:
 
     def open_project(self):
@@ -92,10 +82,6 @@ class MainW(QMainWindow):
 
         self.openwin = OpeningW()
         self.openwin.show()
-
-
-
-
 
 
     def delete_project(self):
@@ -150,6 +136,14 @@ class MainW(QMainWindow):
             self.query.addBindValue(name)
             self.query.exec_()
 
+            self.query.prepare('''DELETE FROM Zakonzovka WHERE NameProject = ? ''')
+            self.query.addBindValue(name)
+            self.query.exec_()
+
+            self.query.prepare('''DELETE FROM Narezka_setki WHERE NameProject = ? ''')
+            self.query.addBindValue(name)
+            self.query.exec_()
+
             self.query.prepare('''DELETE FROM PROJECT WHERE NameProject = ? ''')
             self.query.addBindValue(name)
             self.query.exec_()
@@ -189,11 +183,11 @@ class MainW(QMainWindow):
         tabs[8] = self.ui.checkBox_6.isChecked()
         tabs[9] = self.ui.checkBox_11.isChecked()
         tabs[10] = self.ui.checkBox_13.isChecked()
+        tabs[11] = self.ui.checkBox_12.isChecked()
+        tabs[12] = self.ui.checkBox_23.isChecked()
 
         self.createwin = CreatingW()
         self.createwin.show()
-
-
 
         self.query=QSqlQuery()
         self.query.prepare('''INSERT INTO PAP (Name_Project, Comments, N) VALUES (?, ?, ?)''')
@@ -202,7 +196,7 @@ class MainW(QMainWindow):
         self.query.bindValue(2, int(self.ui.spinBox.text()))
         self.query.exec_()
 
-
+        self.close()
 
 # К Окну "Открыть проекты для просмотра":
 class OpeningW(QMainWindow):
@@ -219,71 +213,130 @@ class OpeningW(QMainWindow):
         self.query.prepare('''SELECT * FROM Rubka WHERE NameProject = ? ''')
         self.query.addBindValue(name)
         self.query.exec_()
-        self.model_Rubka.setQuery(self.query)
-        self.model_Rubka.select()
-        self.ui.tableView.setModel(self.model_Rubka)
+        self.model_Rubka_open = QSqlTableModel()
+        self.model_Rubka_open.setQuery(self.query)
+        self.model_Rubka_open.select()
+        self.ui.tableView.setModel(self.model_Rubka_open)
         self.ui.tableView.show()
 
-        self.query.prepare('''SELECT * FROM Rubka WHERE NameProject = ? ''')
+        self.query.prepare('''SELECT * FROM Gibka WHERE NameProject = ? ''')
         self.query.addBindValue(name)
         self.query.exec_()
-        self.model_Rubka.setQuery(self.query)
-        self.model_Rubka.select()
-        self.ui.tableView.setModel(self.model_Rubka)
-        self.ui.tableView.show()
+        self.model_Gibka_open = QSqlTableModel()
+        self.model_Gibka_open.setQuery(self.query)
+        self.model_Gibka_open.select()
+        self.ui.tableView_3.setModel(self.model_Gibka_open)
+        self.ui.tableView_3.show()
 
-        self.query.prepare('''SELECT * FROM Rubka WHERE NameProject = ? ''')
+        self.query.prepare('''SELECT * FROM Svarka_shov WHERE NameProject = ? ''')
         self.query.addBindValue(name)
         self.query.exec_()
-        self.model_Rubka.setQuery(self.query)
-        self.model_Rubka.select()
-        self.ui.tableView.setModel(self.model_Rubka)
-        self.ui.tableView.show()
+        self.model_Svarka_shov_open = QSqlTableModel()
+        self.model_Svarka_shov_open.setQuery(self.query)
+        self.model_Svarka_shov_open.select()
+        self.ui.tableView_4.setModel(self.model_Svarka_shov_open)
+        self.ui.tableView_4.show()
 
-        self.query.prepare('''SELECT * FROM Rubka WHERE NameProject = ? ''')
+        self.query.prepare('''SELECT * FROM Svarka_toch WHERE NameProject = ? ''')
         self.query.addBindValue(name)
         self.query.exec_()
-        self.model_Rubka.setQuery(self.query)
-        self.model_Rubka.select()
-        self.ui.tableView.setModel(self.model_Rubka)
-        self.ui.tableView.show()
+        self.model_Svarka_toch_open = QSqlTableModel()
+        self.model_Svarka_toch_open.setQuery(self.query)
+        self.model_Svarka_toch_open.select()
+        self.ui.tableView_5.setModel(self.model_Svarka_toch_open)
+        self.ui.tableView_5.show()
 
-        self.query.prepare('''SELECT * FROM Rubka WHERE NameProject = ? ''')
+        self.query.prepare('''SELECT * FROM Proboy WHERE NameProject = ? ''')
         self.query.addBindValue(name)
         self.query.exec_()
-        self.model_Rubka.setQuery(self.query)
-        self.model_Rubka.select()
-        self.ui.tableView.setModel(self.model_Rubka)
-        self.ui.tableView.show()
+        self.model_Proboy_open = QSqlTableModel()
+        self.model_Proboy_open.setQuery(self.query)
+        self.model_Proboy_open.select()
+        self.ui.tableView_6.setModel(self.model_Proboy_open)
+        self.ui.tableView_6.show()
 
-        self.query.prepare('''SELECT * FROM Rubka WHERE NameProject = ? ''')
+        self.query.prepare('''SELECT * FROM Sverlovka WHERE NameProject = ? ''')
         self.query.addBindValue(name)
         self.query.exec_()
-        self.model_Rubka.setQuery(self.query)
-        self.model_Rubka.select()
-        self.ui.tableView.setModel(self.model_Rubka)
-        self.ui.tableView.show()
+        self.model_Sverlovka_open = QSqlTableModel()
+        self.model_Sverlovka_open.setQuery(self.query)
+        self.model_Sverlovka_open.select()
+        self.ui.tableView_7.setModel(self.model_Sverlovka_open)
+        self.ui.tableView_7.show()
 
-        self.query.prepare('''SELECT * FROM Rubka WHERE NameProject = ? ''')
+        self.query.prepare('''SELECT * FROM Zachistka WHERE NameProject = ? ''')
         self.query.addBindValue(name)
         self.query.exec_()
-        self.model_Rubka.setQuery(self.query)
-        self.model_Rubka.select()
-        self.ui.tableView.setModel(self.model_Rubka)
-        self.ui.tableView.show()
+        self.model_Zachistka_open = QSqlTableModel()
+        self.model_Zachistka_open.setQuery(self.query)
+        self.model_Zachistka_open.select()
+        self.ui.tableView_8.setModel(self.model_Zachistka_open)
+        self.ui.tableView_8.show()
 
-        self.query.prepare('''SELECT * FROM Rubka WHERE NameProject = ? ''')
+        self.query.prepare('''SELECT * FROM Obrabotka_torzov WHERE NameProject = ? ''')
         self.query.addBindValue(name)
         self.query.exec_()
-        self.model_Rubka.setQuery(self.query)
-        self.model_Rubka.select()
-        self.ui.tableView.setModel(self.model_Rubka)
-        self.ui.tableView.show()
+        self.model_Obrabotka_torzov_open = QSqlTableModel()
+        self.model_Obrabotka_torzov_open.setQuery(self.query)
+        self.model_Obrabotka_torzov_open.select()
+        self.ui.tableView_9.setModel(self.model_Obrabotka_torzov_open)
+        self.ui.tableView_9.show()
 
+        self.query.prepare('''SELECT * FROM Valzovka WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.model_Valzovka_open = QSqlTableModel()
+        self.model_Valzovka_open.setQuery(self.query)
+        self.model_Valzovka_open.select()
+        self.ui.tableView_10.setModel(self.model_Valzovka_open)
+        self.ui.tableView_10.show()
 
+        self.query.prepare('''SELECT * FROM Narezka WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.model_Narezka_open = QSqlTableModel()
+        self.model_Narezka_open.setQuery(self.query)
+        self.model_Narezka_open.select()
+        self.ui.tableView_12.setModel(self.model_Narezka_open)
+        self.ui.tableView_12.show()
 
+        self.query.prepare('''SELECT * FROM Plazma_rezka WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.model_Plazma_rezka_open = QSqlTableModel()
+        self.model_Plazma_rezka_open.setQuery(self.query)
+        self.model_Plazma_rezka_open.select()
+        self.ui.tableView_11.setModel(self.model_Plazma_rezka_open)
+        self.ui.tableView_11.show()
 
+        self.query.prepare('''SELECT * FROM Zakonzovka WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.model_Zakonzovka_open = QSqlTableModel()
+        self.model_Zakonzovka_open.setQuery(self.query)
+        self.model_Zakonzovka_open.select()
+        self.ui.tableView_13.setModel(self.model_Zakonzovka_open)
+        self.ui.tableView_13.show()
 
+        self.query.prepare('''SELECT * FROM Narezka_setki WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.model_Narezka_setki_open = QSqlTableModel()
+        self.model_Narezka_setki_open.setQuery(self.query)
+        self.model_Narezka_setki_open.select()
+        self.ui.tableView_14.setModel(self.model_Narezka_setki_open)
+        self.ui.tableView_14.show()
+
+        self.query.prepare('''SELECT * FROM PROJECT WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.model_pj_open = QSqlTableModel()
+        self.model_pj_open.setQuery(self.query)
+        self.model_pj_open.select()
+        self.ui.tableView_2.setModel(self.model_pj_open)
+        self.ui.tableView_2.show()
+
+        self.ui.pushButton_2.clicked.connect(self.close)
 
 
 # К Окну "Открыть проекты для просмотра":
@@ -307,6 +360,8 @@ class CreatingW(QMainWindow):
         self.ui.tab_10.setEnabled(tabs[8])
         self.ui.tab_11.setEnabled(tabs[9])
         self.ui.tab_12.setEnabled(tabs[10])
+        self.ui.tab_5.setEnabled(tabs[11])
+        self.ui.tab_13.setEnabled(tabs[12])
 
 
 
@@ -565,6 +620,50 @@ class CreatingW(QMainWindow):
         self.ui.tableView_11.setModel(self.model_Plazma_rezka)
         self.ui.tableView_11.show()
 
+        self.query.exec_(
+            '''CREATE TABLE Zakonzovka 
+                (ID TEXT PRIMARY KEY,
+                NameProject TEXT,
+                diametr TEXT,
+                k1 REAL,
+                n INTEGER,
+                Un REAL,
+                nxN REAL,
+                costs_one REAL,
+                costs_N REAL)''')
+
+        self.query.prepare('''SELECT * FROM Zakonzovka WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.model_Zakonzovka = QSqlTableModel()
+        self.model_Zakonzovka.setQuery(self.query)
+        self.model_Zakonzovka.setEditStrategy(QSqlTableModel.OnFieldChange)
+        self.model_Zakonzovka.select()
+        self.ui.tableView_13.setModel(self.model_Zakonzovka)
+        self.ui.tableView_13.show()
+
+        self.query.exec_(
+            '''CREATE TABLE Narezka_setki 
+                (ID TEXT PRIMARY KEY,
+                NameProject TEXT,
+                L TEXT,
+                k1 REAL,
+                n INTEGER,
+                Un REAL,
+                nxN REAL,
+                costs_one REAL,
+                costs_N REAL)''')
+
+        self.query.prepare('''SELECT * FROM  Narezka_setki WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.model_Narezka_setki = QSqlTableModel()
+        self.model_Narezka_setki.setQuery(self.query)
+        self.model_Narezka_setki.setEditStrategy(QSqlTableModel.OnFieldChange)
+        self.model_Narezka_setki.select()
+        self.ui.tableView_14.setModel(self.model_Narezka_setki)
+        self.ui.tableView_14.show()
+
 
 
 
@@ -583,12 +682,8 @@ class CreatingW(QMainWindow):
                 Valzovka REAL,
                 Narezka REAL,
                 Plazma_rezka REAL,
-                None_1 REAL,
-                None_2 REAL,
-                None_3 REAL,
-                None_4 REAL,
-                None_5 REAL,
-                None_6 REAL,
+                Zakonzovka REAL,
+                Narezka_setki REAL,
                 allcosts_N REAL)''')
 
         self.query.prepare(
@@ -606,17 +701,13 @@ class CreatingW(QMainWindow):
                 Valzovka,
                 Narezka,
                 Plazma_rezka,
-                None_1,
-                None_2,
-                None_3,
-                None_4,
-                None_5,
-                None_6,
+                Zakonzovka,
+                Narezka_setki,
                 allcosts_N) VALUES
-                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''')
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''')
         self.query.addBindValue('Стоимость изд./эл. '+str(name))
         self.query.bindValue(1, name)
-        for i in range(2,21):
+        for i in range(2,18):
             self.query.bindValue(i, 0)
         self.query.exec_()
 
@@ -635,17 +726,13 @@ class CreatingW(QMainWindow):
                 Valzovka,
                 Narezka,
                 Plazma_rezka,
-                None_1,
-                None_2,
-                None_3,
-                None_4,
-                None_5,
-                None_6,
+                Zakonzovka,
+                Narezka_setki,
                 allcosts_N) VALUES
-                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''')
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''')
         self.query.addBindValue('Стоимость проекта '+str(name))
         self.query.bindValue(1, name)
-        for i in range(2, 21):
+        for i in range(2, 18):
             self.query.bindValue(i, 0)
         self.query.exec_()
 
@@ -707,6 +794,14 @@ class CreatingW(QMainWindow):
         # кнопки окна Плазменная резка:
         self.ui.pushButton_22.clicked.connect(self.add_11)
         self.ui.pushButton_23.clicked.connect(self.dell_11)
+
+        # кнопки окна Законцовка труб:
+        self.ui.pushButton_27.clicked.connect(self.add_12)
+        self.ui.pushButton_26.clicked.connect(self.dell_12)
+
+        # кнопки окна Нарезка сетки:
+        self.ui.pushButton_29.clicked.connect(self.add_13)
+        self.ui.pushButton_28.clicked.connect(self.dell_13)
 
 
     def refresh(self, table, query, modell):
@@ -788,6 +883,14 @@ class CreatingW(QMainWindow):
         self.query.addBindValue(name)
         self.query.exec_()
 
+        self.query.prepare('''DELETE FROM Zakonzovka WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+
+        self.query.prepare('''DELETE FROM Narezka_setki WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+
         self.query.prepare('''DELETE FROM PROJECT WHERE NameProject = ? ''')
         self.query.addBindValue(name)
         self.query.exec_()
@@ -808,7 +911,7 @@ class CreatingW(QMainWindow):
 
         self.s_one = 0
         self.s_all = 0
-        for i in range(11):
+        for i in range(13):
             self.s_one += (self.model_pj.record(0).value(i + 2))
             self.s_all += (self.model_pj.record(1).value(i + 2))
 
@@ -832,14 +935,10 @@ class CreatingW(QMainWindow):
                 Valzovka,
                 Narezka,
                 Plazma_rezka,
-                None_1,
-                None_2,
-                None_3,
-                None_4,
-                None_5,
-                None_6,
+                Zakonzovka,
+                Narezka_setki,
                 allcosts_N) VALUES
-                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''')
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''')
         self.query.addBindValue('Стоимость изд./эл. ' + str(name))
         self.query.bindValue(1, name)
         self.query.bindValue(2, sum(self.model_Rubka, 10))
@@ -853,13 +952,9 @@ class CreatingW(QMainWindow):
         self.query.bindValue(10, sum(self.model_Valzovka, 7))
         self.query.bindValue(11, sum(self.model_Narezka, 9))
         self.query.bindValue(12, sum(self.model_Plazma_rezka, 7))
-        self.query.bindValue(13, 0)
-        self.query.bindValue(14, 0)
-        self.query.bindValue(15, 0)
-        self.query.bindValue(16, 0)
-        self.query.bindValue(17, 0)
-        self.query.bindValue(18, 0)
-        self.query.bindValue(19, self.s_one)
+        self.query.bindValue(13, sum(self.model_Zakonzovka, 7))
+        self.query.bindValue(14, sum(self.model_Narezka_setki, 7))
+        self.query.bindValue(15, self.s_one)
         self.query.exec_()
 
         self.query.prepare(
@@ -877,14 +972,10 @@ class CreatingW(QMainWindow):
                 Valzovka,
                 Narezka,
                 Plazma_rezka,
-                None_1,
-                None_2,
-                None_3,
-                None_4,
-                None_5,
-                None_6,
+                Zakonzovka,
+                Narezka_setki,
                 allcosts_N) VALUES
-                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''')
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''')
         self.query.addBindValue('Стоимость проекта ' + str(name))
         self.query.bindValue(1, name)
         self.query.bindValue(2, sum(self.model_Rubka, 11))
@@ -898,13 +989,9 @@ class CreatingW(QMainWindow):
         self.query.bindValue(10, sum(self.model_Valzovka, 8))
         self.query.bindValue(11, sum(self.model_Narezka, 10))
         self.query.bindValue(12, sum(self.model_Plazma_rezka, 8))
-        self.query.bindValue(13, 0)
-        self.query.bindValue(14, 0)
-        self.query.bindValue(15, 0)
-        self.query.bindValue(16, 0)
-        self.query.bindValue(17, 0)
-        self.query.bindValue(18, 0)
-        self.query.bindValue(19, self.s_all)
+        self.query.bindValue(13, sum(self.model_Zakonzovka, 8))
+        self.query.bindValue(14, sum(self.model_Narezka_setki, 8))
+        self.query.bindValue(15, self.s_all)
 
 
         self.query.exec_()
@@ -956,7 +1043,7 @@ class CreatingW(QMainWindow):
     # функции окна Сварка шовная:
 
     def type_func(self, type):
-        k1 = {'Ручная дуговая': 1.0, 'Аргонодуговая': 1.2, 'Полуавтоматическая': 1.4}
+        k1 = {'Ручная дуговая': 1.0, 'Аргонодуговая': 1.2, 'Полуавтоматическая': 0.8}
         return k1[type]
 
     def quality_func(self, quality):
@@ -968,12 +1055,12 @@ class CreatingW(QMainWindow):
         return k3[times]
 
     def Sone_func3(self, k1, k2, k3, un, n, L):
-        return k1 * k2 * k3 * un * n * L
+        return k1 * k2 * k3 * un * n * L/10
 
     # функции окна Сверловка:
 
     def tolshina_func(self, tolshina):
-        k1 = {'до 4 мм': 1.0, 'от 5 до 6 мм': 1.2, 'от 8 до 10 мм': 1.4}
+        k1 = {'до 4 мм': 0.8, 'от 5 до 6 мм': 0.9, 'от 8 до 10 мм': 1.0}
         return k1[tolshina]
 
     def diametr_func(self, diametr):
@@ -983,7 +1070,7 @@ class CreatingW(QMainWindow):
     # функции окна Зачистка:
 
     def typez_func(self, type):
-        k1 = {'Зачистным кругом': 1.0, 'Лепестковым кругом': 1.2}
+        k1 = {'Зачистным кругом': 1.0, 'Лепестковым кругом': 0.9}
         return k1[type]
 
     # функции окна Вальцовка:
@@ -1029,11 +1116,23 @@ class CreatingW(QMainWindow):
               'Шпилька М16': 11.26}
         return k2[type]
 
-    # функции окна Нарезка:
+    # функции окна Плазменнная резка:
 
     def diametrpl_func(self, diametr):
-        k1 = {'до 50 мм': 1.0, 'от 50 до 100 мм': 0.9, 'более 100 мм': 0.9}
+        k1 = {'до 50 мм': 0.5, 'от 50 до 100 мм': 1.0, 'более 100 мм': 2.0}
         return k1[diametr]
+
+    # функции окна Законцовка труб:
+
+    def diametrz_func(self, diametr):
+        k1 = {'до 16 мм': 1.0, 'более 18 мм': 1.1}
+        return k1[diametr]
+
+    # функции окна Нарезка сетки:
+
+    def L_func(self, L):
+        k1 = {'1 м': 1.0, '1,5 м': 1.5}
+        return k1[L]
 
 
 
@@ -1512,6 +1611,84 @@ class CreatingW(QMainWindow):
         self.query.exec_()
         self.refresh(self.ui.tableView_11, self.query, self.model_Plazma_rezka)
 
+    # кнопки-функции окна Законцовка труб:
+
+    def add_12(self):
+        alfavit = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        self.query.prepare(
+            '''INSERT INTO Zakonzovka (ID, NameProject, n, Un, diametr, k1, nxN, costs_one, costs_N) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''')
+        self.query.bindValue(0, str(name) + alfavit[randint(0, 21)] + str(randint(0, 1000000)))
+        self.query.bindValue(1, name)
+        self.query.bindValue(2, int(self.ui.spinBox_30.text()))
+        self.query.bindValue(3, float(self.ui.spinBox_29.text()))
+        self.query.bindValue(4, self.ui.comboBox_13.currentText())
+        self.query.bindValue(5, self.diametrz_func(self.ui.comboBox_13.currentText()))
+        self.query.bindValue(6, self.nxN_func(2*(int(self.ui.spinBox_30.text())), N))
+        self.query.bindValue(7, self.Sone_func(self.diametrz_func(self.ui.comboBox_13.currentText()), 1, 1,
+                                               float(self.ui.spinBox_29.text()),
+                                               2*(int(self.ui.spinBox_30.text()))))
+        self.query.bindValue(8, self.S_func(
+            self.Sone_func(self.diametrz_func(self.ui.comboBox_13.currentText()), 1, 1,
+                           float(self.ui.spinBox_29.text()),
+                           2*(int(self.ui.spinBox_30.text()))), N))
+
+        self.query.exec_()
+
+        self.query.prepare('''SELECT * FROM Zakonzovka WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.refresh(self.ui.tableView_13, self.query, self.model_Zakonzovka)
+
+    def dell_12(self):
+        rowid = self.model_Zakonzovka.record(self.ui.tableView_13.currentIndex().row()).value(0)
+        self.query.prepare('''DELETE FROM Zakonzovka WHERE ID = ? ''')
+        self.query.addBindValue(rowid)
+        self.query.exec_()
+
+        self.query.prepare('''SELECT * FROM Zakonzovka WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.refresh(self.ui.tableView_13, self.query, self.model_Zakonzovka)
+
+    # кнопки-функции окна Нарезка сетки:
+
+    def add_13(self):
+        alfavit = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        self.query.prepare(
+            '''INSERT INTO Narezka_setki (ID, NameProject, n, Un, L, k1, nxN, costs_one, costs_N) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''')
+        self.query.bindValue(0, str(name) + alfavit[randint(0, 21)] + str(randint(0, 1000000)))
+        self.query.bindValue(1, name)
+        self.query.bindValue(2, int(self.ui.spinBox_32.text()))
+        self.query.bindValue(3, float(self.ui.spinBox_31.text()))
+        self.query.bindValue(4, self.ui.comboBox_15.currentText())
+        self.query.bindValue(5, self.L_func(self.ui.comboBox_15.currentText()))
+        self.query.bindValue(6, self.nxN_func(int(self.ui.spinBox_32.text()), N))
+        self.query.bindValue(7, self.Sone_func(self.L_func(self.ui.comboBox_15.currentText()), 1, 1,
+                                               float(self.ui.spinBox_31.text()),
+                                               int(self.ui.spinBox_32.text())))
+        self.query.bindValue(8, self.S_func(
+            self.Sone_func(self.L_func(self.ui.comboBox_15.currentText()), 1, 1,
+                           float(self.ui.spinBox_31.text()),
+                           int(self.ui.spinBox_32.text())), N))
+
+        self.query.exec_()
+
+        self.query.prepare('''SELECT * FROM Narezka_setki WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.refresh(self.ui.tableView_14, self.query, self.model_Narezka_setki )
+
+    def dell_13(self):
+        rowid = self.model_Narezka_setki.record(self.ui.tableView_14.currentIndex().row()).value(0)
+        self.query.prepare('''DELETE FROM Narezka_setki WHERE ID = ? ''')
+        self.query.addBindValue(rowid)
+        self.query.exec_()
+
+        self.query.prepare('''SELECT * FROM Narezka_setki WHERE NameProject = ? ''')
+        self.query.addBindValue(name)
+        self.query.exec_()
+        self.refresh(self.ui.tableView_14, self.query, self.model_Narezka_setki )
+
 
 
 
@@ -1545,7 +1722,6 @@ if __name__ == "__main__":
 # Для конвертирования .ui-файлов в .py-файлы
 
 # pyuic5 MainW.ui -o MainW.py
-# pyuic5 ChildV.ui -o ChildV.py
 # pyuic5 CreatingW.ui -o CreatingW.py
 # pyuic5 OpeningW.ui -o OpeningW.py
 

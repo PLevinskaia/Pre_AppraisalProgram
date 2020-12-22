@@ -182,11 +182,16 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>350</x>
+      <x>30</x>
       <y>10</y>
       <width>751</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <italic>true</italic>
+     </font>
     </property>
     <property name="text">
      <string>Чтобы создать новый проект введите параметры в поле слева и кликните &quot;Создать проект&quot;.</string>
@@ -195,11 +200,19 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>30</x>
       <y>40</y>
       <width>1011</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <italic>true</italic>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+      <stylestrategy>PreferAntialias</stylestrategy>
+     </font>
     </property>
     <property name="text">
      <string>Чтобы открыть существующий проект для просмотра, выберите его в таблице справа и кликните &quot;Открыть для просмотра&quot;.</string>
@@ -238,7 +251,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Пример: Производство - ноябрь 2020 г, партия №1</string>
+     <string>Пример: Кемерово, 03.09.2020 г, партия №1</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
@@ -368,7 +381,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>None</string>
+     <string>Законцовка труб</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBox_13">
@@ -384,110 +397,6 @@
      <string>Плазма</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_14">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>570</y>
-      <width>300</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_15">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>660</y>
-      <width>300</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_16">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>480</y>
-      <width>300</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_17">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>630</y>
-      <width>300</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_18">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>390</y>
-      <width>300</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_19">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>600</y>
-      <width>300</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_20">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>450</y>
-      <width>300</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_22">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>420</y>
-      <width>300</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </widget>
    <widget class="QCheckBox" name="checkBox_23">
     <property name="geometry">
      <rect>
@@ -498,52 +407,13 @@
      </rect>
     </property>
     <property name="text">
-     <string>None</string>
+     <string>Нарезка сетки</string>
     </property>
     <property name="checked">
      <bool>false</bool>
     </property>
     <property name="tristate">
      <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_24">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>510</y>
-      <width>300</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_25">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>540</y>
-      <width>300</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_26">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>690</y>
-      <width>300</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>None</string>
     </property>
    </widget>
    <widget class="QTableView" name="tableView">

@@ -38,6 +38,11 @@
       <height>520</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <stylestrategy>PreferAntialias</stylestrategy>
+     </font>
+    </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
@@ -199,6 +204,36 @@
       <property name="geometry">
        <rect>
         <x>9</x>
+        <y>10</y>
+        <width>1561</width>
+        <height>471</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_5">
+     <attribute name="title">
+      <string>Законцовка труб</string>
+     </attribute>
+     <widget class="QTableView" name="tableView_13">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>1561</width>
+        <height>471</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_13">
+     <attribute name="title">
+      <string>Нарезка сетки</string>
+     </attribute>
+     <widget class="QTableView" name="tableView_14">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
         <y>10</y>
         <width>1561</width>
         <height>471</height>
